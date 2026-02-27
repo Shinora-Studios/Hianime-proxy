@@ -25,7 +25,12 @@ export const m3u8Proxy = async (req: Request, res: Response) => {
     res.cacheControl = { maxAge: headers['cache-control'] };
     headers["Access-Control-Allow-Origin"] = "*";
     headers["Access-Control-Allow-Headers"] = "*";
-    headers["Access-Control-Allow-Methods"] = "*"
+    headers["Access-Control-Allow-Methods"] = "*";
+    
+    if (url.endsWith(".m3u8")) {
+      headers["Content-Type"] = "application/x-mpegURL";
+    }
+    
     res.set(headers);
 
     if (isStaticFiles) {
